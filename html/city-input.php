@@ -40,7 +40,7 @@
     </nav>
     <div class="container">
       <h3>city 登録</h3>
-      <form class="row g-3">
+      <form method="post" class="row g-3">
         <div class="col-12">
           <label for="Name" class="form-label">Name</label>
           <input type="text" class="form-control" id="Name" name="Name">

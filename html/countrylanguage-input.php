@@ -1,3 +1,26 @@
+<?php
+  if( $_SERVER[ 'REQUEST_METHOD' ] === "POST" ) {
+    $mysqliPointer = new mysqli( "localhost" , "ksbitbusiness" , "ksbitbusiness" , "ksbitbusiness" );
+    if( empty( $mysqliPointer ) ) {
+      echo "db connection error.";
+      exit;
+    }
+
+    $CountryCode = $_POST[ 'CountryCode' ];
+    $Language = $_POST[ 'Language' ];
+    $IsOfficial = $_POST[ 'IsOfficial' ];
+    $Percentage = $_POST[ 'Percentage' ];
+
+    $query = "INSERT INTO countrylanguage ( CountryCode , Language , IsOfficial , Percentage )";
+    $query .= " VALUES ( '$CountryCode' , '$Language' , '$IsOfficial' , $Percentage )";
+    $mysqliPointer->query( $query );
+
+    if( $mysqliPointer->error ) {
+      echo $query;
+      echo $mysqliPointer->error;
+    }
+  }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,22 +41,22 @@
     </nav>
     <div class="container">
       <h3>countrylanguage 登録</h3>
-      <form class="row g-3">
+      <form method="post" action="#"class="row g-3">
         <div class="col-12">
           <label for="CountryCode" class="form-label">CountryCode</label>
-          <input type="text" class="form-control" id="CountryCode">
+          <input type="text" class="form-control" id="CountryCode" name="CountryCode">
         </div>
         <div class="col-12">
           <label for="Language" class="form-label">Language</label>
-          <input type="text" class="form-control" id="Language">
+          <input type="text" class="form-control" id="Language" name="Language">
         </div>
         <div class="col-12">
           <label for="IsOfficial" class="form-label">IsOfficial</label>
-          <input type="text" class="form-control" id="IsOfficial">
+          <input type="text" class="form-control" id="IsOfficial" name="IsOfficial">
         </div>
         <div class="col-12">
           <label for="Percentage" class="form-label">Percentage</label>
-          <input type="text" class="form-control" id="Percentage">
+          <input type="text" class="form-control" id="Percentage" name="Percentage">
         </div>
         <div class="col-12">
           <button type="submit" class="btn btn-info">
