@@ -1,3 +1,25 @@
+<?php
+  if( $_SERVER[ 'REQUEST_METHOD' ] === "POST" ) {
+    $mysqliPointer = new mysqli( "localhost" , "ksbitbusiness" , "ksbitbusiness" , "ksbitbusiness" );
+    if( empty( $mysqliPointer ) ) {
+      echo "db connection error.";
+      exit;
+    }
+
+    $Name = $_POST[ 'Name' ];
+    $CountryCode = $_POST[ 'CountryCode' ];
+    $District = $_POST[ 'District' ];
+    $Population = $_POST[ 'Population' ];
+
+    $query = "INSERT INTO city ( Name , CountryCode , District , Population )";
+    $query .= " VALUES ( '$Name' , '$CountryCode' , '$District' , $Population )";
+    $mysqliPointer->query( $query );
+
+    if( $mysqliPointer->error ) {
+      echo $mysqliPointer->error;
+    }
+  }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,19 +43,19 @@
       <form class="row g-3">
         <div class="col-12">
           <label for="Name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="Name">
+          <input type="text" class="form-control" id="Name" name="Name">
         </div>
         <div class="col-12">
           <label for="CountryCode" class="form-label">CountryCode</label>
-          <input type="text" class="form-control" id="CountryCode">
+          <input type="text" class="form-control" id="CountryCode" name="CountryCode">
         </div>
         <div class="col-12">
           <label for="District" class="form-label">District</label>
-          <input type="text" class="form-control" id="District">
+          <input type="text" class="form-control" id="District" name="District">
         </div>
         <div class="col-12">
           <label for="Population" class="form-label">Population</label>
-          <input type="number" class="form-control" id="Population">
+          <input type="number" class="form-control" id="Population" name="Population">
         </div>
         <div class="col-12">
           <button type="submit" class="btn btn-info">

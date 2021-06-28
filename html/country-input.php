@@ -5,7 +5,6 @@
       echo "db connection error.";
       exit;
     }
-    echo "データ登録";
 
     $Code = $_POST[ 'Code' ];
     $Name = $_POST[ 'Name' ];
